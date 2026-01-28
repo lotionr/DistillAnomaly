@@ -390,7 +390,7 @@ class QwenVLDataset(Dataset):
 
         # Build focus mask over prompt_ids: select only tokens after "Columns per line"
         prompt_focus_mask = torch.zeros_like(
-            prompt_ids, dtype=torch.long)  # (1,P)
+            prompt_ids['input_ids'], dtype=torch.long)  # (1,P)
 
         focus_text = _extract_focus_substring(
             prompt_text, marker="Columns per line")
@@ -401,7 +401,7 @@ class QwenVLDataset(Dataset):
                 return_tensors="pt",
             )["input_ids"][0]  # (K,)
 
-            start = _find_subsequence(prompt_ids[0], focus_ids)
+            start = _find_subsequence(prompt_ids['input_ids'][0], focus_ids)
             if start >= 0:
                 prompt_focus_mask[0, start:start + focus_ids.numel()] = 1
             else:
@@ -413,8 +413,8 @@ class QwenVLDataset(Dataset):
 
         input_ids, attn_mask, labels, itc_src_mask = _concat_with_truncation_keep_images_and_answer_and_mask(
             img_tok_tensor=img_tok_tensor,
-            prompt_ids=prompt_ids,
-            answer_ids=answer_ids,
+            prompt_ids=prompt_ids['input_ids'],
+            answer_ids=answer_ids['input_ids'],
             prompt_focus_mask=prompt_focus_mask,
             pad_id=self.tok.pad_token_id,
             max_len=self.max_len,
@@ -673,7 +673,6 @@ if __name__ == "__main__":
 
     model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
         args.model_dir,
-        device_map="auto" if device == "cuda" else None,
         torch_dtype="auto",
         local_files_only=True,
     )
@@ -770,6 +769,8 @@ if __name__ == "__main__":
     targs.alpha_itc_ts = args.alpha_itc_ts
     targs.itc_temp = args.itc_temp
 
+    model.gradient_checkpointing_enable()
+    model.config.use_cache = False
     trainer = VLTrainer(
         model=model,
         args=targs,
