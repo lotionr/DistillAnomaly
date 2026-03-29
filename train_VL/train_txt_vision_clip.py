@@ -28,7 +28,7 @@ from peft import LoraConfig, TaskType, get_peft_model
 from PIL import Image
 from torch.utils.data import DataLoader, Dataset, Sampler
 from transformers import (AutoImageProcessor, AutoTokenizer,
-                          Qwen2_5_VLForConditionalGeneration, Trainer,
+                          Qwen2VLForConditionalGeneration, Trainer,
                           TrainingArguments)
 
 os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
@@ -671,15 +671,15 @@ if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "cpu"
     logging.info("Device: %s • Torch %s", device, torch.__version__)
 
-    model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+    model = Qwen2VLForConditionalGeneration.from_pretrained(
         args.model_dir,
         torch_dtype="auto",
-        local_files_only=True,
+        local_files_only=False,
     )
     tokenizer = AutoTokenizer.from_pretrained(
-        args.model_dir, local_files_only=True)
+        args.model_dir, local_files_only=False)
     image_processor = AutoImageProcessor.from_pretrained(
-        args.model_dir, local_files_only=True)
+        args.model_dir, local_files_only=False)
 
     tokenizer.padding_side = "right"
 

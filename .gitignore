@@ -1,0 +1,23 @@
+# Virtual environment
+myenv/
+
+# Datasets (re-download on target machine)
+adbench_data/
+all_data/
+adbench_images/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Logs
+*.log
+
+# Temp
+temp_charts/
