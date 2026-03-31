@@ -1,0 +1,127 @@
+[
+  {
+    "id": "F01",
+    "category": "data",
+    "description": "ADBench data loader",
+    "steps": [
+      "Implement a function that loads all .npz files from data/adbench/",
+      "Each file returns (X, y) where X is the feature matrix and y is binary (0=normal, 1=anomaly)",
+      "Verify all 57 datasets load without error",
+      "Print dataset name, shape, and anomaly ratio for each"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F02",
+    "category": "data",
+    "description": "Tabular data preprocessor",
+    "steps": [
+      "Implement preprocessing compatible with tabular ADBench datasets",
+      "Handle mixed types: numerical scaling, categorical encoding",
+      "Handle missing values gracefully",
+      "Ensure preprocessing is fit only on training data to avoid leakage"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F03",
+    "category": "model",
+    "description": "Adapt anomaly detection model for tabular input",
+    "steps": [
+      "Review current model pipeline and identify any assumptions about input format",
+      "Ensure model accepts 2D numpy arrays of shape (n_samples, n_features)",
+      "Ensure model outputs a 1D anomaly score array of shape (n_samples,)",
+      "Test on one ADBench dataset end-to-end"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F04",
+    "category": "evaluation",
+    "description": "AUROC scoring function",
+    "steps": [
+      "Implement compute_auroc(y_true, scores) using sklearn.metrics.roc_auc_score",
+      "Handle edge cases: all-same labels, NaN scores",
+      "Write unit test with known inputs and expected AUROC output",
+      "Verify against a trivial detector (random scores should give ~0.5)"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F05",
+    "category": "evaluation",
+    "description": "Per-dataset evaluation loop",
+    "steps": [
+      "Iterate over all 57 ADBench datasets",
+      "For each: load data, preprocess, fit model, score, compute AUROC",
+      "Log each result with dataset name and AUROC",
+      "Handle failures gracefully: catch exceptions, log error, skip dataset",
+      "Save results to results/per_dataset_auroc.csv"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F06",
+    "category": "evaluation",
+    "description": "Aggregate scoring and results table",
+    "steps": [
+      "Compute mean AUROC across all successfully evaluated datasets",
+      "Generate a results table: dataset name, n_samples, n_features, anomaly_ratio, AUROC",
+      "Sort by AUROC descending",
+      "Save to results/final_results.csv and print summary to stdout"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F07",
+    "category": "evaluation",
+    "description": "RFuni baseline comparison",
+    "steps": [
+      "Implement RFuni baseline from the BlackRock paper (arXiv 2504.16075)",
+      "RFuni: train RandomForest to distinguish real data from uniform synthetic data",
+      "Compute GAP distances, then use median distance to central 50% as anomaly score",
+      "Run RFuni on all 57 ADBench datasets and record AUROC",
+      "Save RFuni results to results/rfuni_baseline.csv"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F08",
+    "category": "evaluation",
+    "description": "Head-to-head comparison against RFuni",
+    "steps": [
+      "Load results/final_results.csv and results/rfuni_baseline.csv",
+      "Merge on dataset name",
+      "Compute per-dataset delta (our model AUROC - RFuni AUROC)",
+      "Compute mean AUROC for both models",
+      "Print comparison table and highlight datasets where we outperform / underperform RFuni",
+      "Save to results/comparison.csv"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F09",
+    "category": "infrastructure",
+    "description": "Results directory and reproducibility",
+    "steps": [
+      "Create results/ directory if it does not exist",
+      "Set random seeds for all stochastic components (numpy, sklearn)",
+      "Log Python and package versions to results/env_info.txt",
+      "Ensure full pipeline can be re-run from scratch and produces identical results"
+    ],
+    "passes": false
+  },
+  {
+    "id": "F10",
+    "category": "infrastructure",
+    "description": "End-to-end pipeline script",
+    "steps": [
+      "Create run_evaluation.py that executes the full pipeline in one command",
+      "Steps: load data → preprocess → fit/score → evaluate → compare to RFuni → print summary",
+      "Add --dataset flag to run on a single dataset for quick testing",
+      "Add --baseline-only flag to run just RFuni for comparison",
+      "Verify python run_evaluation.py completes without errors"
+    ],
+    "passes": false
+  }
+]

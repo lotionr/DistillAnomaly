@@ -1,0 +1,54 @@
+========================================
+ANOMALY DETECTION — ADBench EVALUATION
+Progress Log for Claude Code Sessions
+========================================
+
+PROJECT GOAL
+------------
+Adapt our anomaly detection pipeline to work with tabular data and achieve
+comparable AUROC performance to RFuni (BlackRock paper, arXiv 2504.16075)
+when benchmarked on ADBench (57 datasets).
+
+REFERENCE
+---------
+Paper: "Explainable Unsupervised Anomaly Detection with Random Forest"
+       Harvey et al., BlackRock/Prospect33, arXiv 2504.16075
+Benchmark: ADBench — https://github.com/Minqi824/ADBench
+Metric: AUROC (Area Under ROC Curve), averaged across all 57 datasets
+
+REPO STRUCTURE
+--------------
+  init.sh              — Run this to set up environment and download data
+  feature_list.json    — All tasks; update "passes": true when complete
+  claude-progress.txt  — This file; append a new SESSION entry each run
+  data/adbench/        — ADBench .npz datasets (57 files)
+  results/             — Output CSVs from evaluation runs
+  venv/                — Python virtual environment (activate before running)
+
+HOW TO START EACH SESSION
+--------------------------
+1. Run: source venv/bin/activate
+2. Read this file and git log --oneline -20 to catch up
+3. Read feature_list.json and pick the highest-priority task with "passes": false
+4. Work on ONE feature at a time
+5. Test it end-to-end before marking passes: true
+6. Append a session summary below
+7. Commit: git add -A && git commit -m "descriptive message"
+
+========================================
+SESSION LOG
+========================================
+
+--- SESSION 0 — Initialization ---
+Date: [project start]
+Agent: Initializer
+Completed:
+  - Created init.sh (environment setup + ADBench download)
+  - Created feature_list.json (10 features, all passes: false)
+  - Created claude-progress.txt (this file)
+Next session should start with: F01 — ADBench data loader
+Status: Clean. No code written yet.
+
+----------------------------------------
+[Append new sessions below this line]
+----------------------------------------
