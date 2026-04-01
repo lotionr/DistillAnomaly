@@ -109,7 +109,7 @@
       "Log Python and package versions to results/env_info.txt",
       "Ensure full pipeline can be re-run from scratch and produces identical results"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F10",

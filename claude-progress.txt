@@ -166,6 +166,20 @@ Completed:
   - Marked F08 passes: true in feature_list.json.
 Status: Clean. Ready for F09 (results directory and reproducibility).
 
+--- SESSION 9 — F09: Results Directory and Reproducibility ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F09 — Results directory and reproducibility
+Completed:
+  - results/ directory created by all evaluation scripts (mkdir -p).
+  - All stochastic components use random_state=42:
+      TabularPreprocessor, TabularAnomalyDetector, RFuniDetector, train_test_split.
+  - Implemented src/tabular/env_info.py → writes results/env_info.txt with:
+      Python 3.12.3, numpy 2.4.4, pandas 3.0.2, scikit-learn 1.8.0, scipy 1.17.1.
+  - Verified reproducibility: two runs of same dataset produce identical AUROC.
+  - Marked F09 passes: true in feature_list.json.
+Status: Clean. Ready for F10 (end-to-end pipeline script).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

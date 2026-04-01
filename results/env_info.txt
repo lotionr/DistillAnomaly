@@ -1,0 +1,21 @@
+Generated: 2026-04-01 00:30:27 UTC
+
+Python
+  version   : 3.12.3 (main, Mar  3 2026, 12:15:18) [GCC 13.3.0]
+  executable: /home/ubuntu/DistillAnomaly/venv/bin/python
+  platform  : Linux-6.17.0-1007-aws-x86_64-with-glibc2.39
+
+Packages
+  numpy               : 2.4.4
+  pandas              : 3.0.2
+  scikit-learn        : 1.8.0
+  scipy               : 1.17.1
+
+Reproducibility
+  All stochastic components use random_state=42 (TabularPreprocessor,
+  TabularAnomalyDetector, RFuniDetector, train_test_split).
+  numpy random: seeded per-call via np.random.default_rng(42).
+
+Git
+  branch: lochan
+  commit: f423c2791430b13fd3a4173d76fabf7559ee06f2
