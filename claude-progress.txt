@@ -128,6 +128,24 @@ Completed:
   - Marked F06 passes: true in feature_list.json.
 Status: Clean. Ready for F07 (RFuni baseline).
 
+--- SESSION 7 — F07: RFuni Baseline ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F07 — RFuni baseline comparison
+Completed:
+  - Implemented src/tabular/rfuni.py with RFuniDetector class.
+  - Algorithm: draw uniform synthetic data per feature range, train RF (real=1 vs synth=0),
+    score = 1 − P(real | x).
+  - Same preprocessing (TabularPreprocessor) and 80/20 stratified split.
+  - Full run: 47/47 datasets succeed, mean RFuni AUROC = 0.6336.
+  - Saved to results/rfuni_baseline.csv.
+  - Key finding: IsolationForest (mean=0.7711) significantly outperforms
+    RFuni (mean=0.6336) with this evaluation protocol.
+  - Note: many datasets near 0.5 for RFuni — likely due to high contamination
+    rates or RFuni being less effective on very large datasets.
+  - Marked F07 passes: true in feature_list.json.
+Status: Clean. Ready for F08 (head-to-head comparison).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

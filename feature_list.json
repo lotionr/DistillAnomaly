@@ -83,7 +83,7 @@
       "Run RFuni on all 57 ADBench datasets and record AUROC",
       "Save RFuni results to results/rfuni_baseline.csv"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F08",
