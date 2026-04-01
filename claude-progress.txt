@@ -115,6 +115,19 @@ Completed:
   - Marked F05 passes: true in feature_list.json.
 Status: Clean. Ready for F06 (aggregate scoring and results table).
 
+--- SESSION 6 — F06: Aggregate Scoring and Results Table ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F06 — Aggregate scoring and results table
+Completed:
+  - Implemented src/tabular/aggregate.py.
+  - Reads results/per_dataset_auroc.csv, computes stats, writes results/final_results.csv.
+  - Columns: rank, dataset, n_samples, n_features, anomaly_pct, auroc (sorted desc).
+  - Prints full ranked table + summary (mean, median, min, max AUROC).
+  - Results: 47/47 datasets, mean=0.7711, median=0.7799, min=0.4184 (Wilt), max=1.0 (musk).
+  - Marked F06 passes: true in feature_list.json.
+Status: Clean. Ready for F07 (RFuni baseline).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

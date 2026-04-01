@@ -70,7 +70,7 @@
       "Sort by AUROC descending",
       "Save to results/final_results.csv and print summary to stdout"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F07",
