@@ -146,6 +146,26 @@ Completed:
   - Marked F07 passes: true in feature_list.json.
 Status: Clean. Ready for F08 (head-to-head comparison).
 
+--- SESSION 8 — F08: Head-to-Head Comparison ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F08 — Head-to-head comparison against RFuni
+Completed:
+  - Implemented src/tabular/compare.py.
+  - Merges final_results.csv and rfuni_baseline.csv on dataset name.
+  - Computes per-dataset delta = iso_auroc - rfuni_auroc.
+  - Saves to results/comparison.csv.
+  - Prints ranked table with win/tie/loss flags.
+  - Results:
+      IsolationForest mean AUROC: 0.7711
+      RFuni mean AUROC:           0.6336
+      Delta:                     +0.1375
+      Win/Tie/Loss:              37 / 1 / 9
+  - IsolationForest wins on 37/47 datasets; loses on 9 (letter, vowels,
+    yeast, speech, Lymphography, Ionosphere, Wilt, landsat, WPBC).
+  - Marked F08 passes: true in feature_list.json.
+Status: Clean. Ready for F09 (results directory and reproducibility).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

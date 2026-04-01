@@ -97,7 +97,7 @@
       "Print comparison table and highlight datasets where we outperform / underperform RFuni",
       "Save to results/comparison.csv"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F09",
