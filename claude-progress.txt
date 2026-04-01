@@ -52,3 +52,24 @@ Status: Clean. No code written yet.
 ----------------------------------------
 [Append new sessions below this line]
 ----------------------------------------
+
+--- SESSION 1 — F01: ADBench Data Loader ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F01 — ADBench data loader
+Completed:
+  - Downloaded ADBench Classical datasets (47 .npz files) via sparse git checkout
+    using the existing download_adbench_classical.sh script.
+  - Copied datasets to data/adbench/ (as expected by init.sh).
+  - Implemented src/tabular/data_loader.py with:
+      load_dataset(path)           — loads one .npz, returns (X float64, y int32)
+      load_all_datasets(data_dir)  — loads all .npz, prints summary table, returns dict
+      get_dataset_names(data_dir)  — lists available dataset names
+  - Tested end-to-end: all 47/47 Classical datasets load cleanly.
+  - Dataset sizes range from 80 to 619k samples, 3 to 1555 features.
+  - Note: ADBench has 57 total datasets; 47 are Classical (tabular). The remaining
+    10 are CV embeddings (ResNet18). We focus on Classical for this pipeline.
+  - Marked F01 passes: true in feature_list.json.
+Status: Clean. Ready for F02 (tabular preprocessor).
+
+----------------------------------------

@@ -9,7 +9,7 @@
       "Verify all 57 datasets load without error",
       "Print dataset name, shape, and anomaly ratio for each"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F02",
