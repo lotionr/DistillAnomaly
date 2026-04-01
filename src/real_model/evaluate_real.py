@@ -286,9 +286,10 @@ def main():
         comp_df = comp_df.merge(iso_df, on="dataset", how="left")
 
     if rfuni_csv.exists():
-        rf_df = pd.read_csv(rfuni_csv)[["dataset", "auroc"]].rename(
-            columns={"auroc": "rfuni_auroc"}
-        )
+        rf_df = pd.read_csv(rfuni_csv)
+        # column may be "rfuni_auroc" (from rfuni.py) or "auroc"
+        auroc_col = "rfuni_auroc" if "rfuni_auroc" in rf_df.columns else "auroc"
+        rf_df = rf_df[["dataset", auroc_col]].rename(columns={auroc_col: "rfuni_auroc"})
         comp_df = comp_df.merge(rf_df, on="dataset", how="left")
 
     comp_df.to_csv(args.comparison_file, index=False)

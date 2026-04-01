@@ -201,6 +201,64 @@ Final results summary:
 
 Status: Clean. All features implemented and committed.
 
+--- SESSION 11 — Real VLM Benchmark ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Task: Replace IsolationForest placeholder with real Qwen2.5-VL-3B + LoRA model
+
+Completed:
+  1. Explored repo: train_VL/ (LoRA checkpoints), eval/ (inference scripts),
+     src/annotations/ (training data format).
+  2. Identified best checkpoint: qwen2.5-vl-3b-lora-vl-ts3-20ep/checkpoint-1060
+     (ts3 mode: raw + moving_avg + moving_std images; 20 epochs; 144 LoRA layers).
+  3. Installed transformers 5.4.0 in /opt/pytorch env (Python 3.13 + CUDA 13.0).
+  4. Downloaded Qwen2.5-VL-3B-Instruct base model to /home/ubuntu/models/ (~7.5GB).
+  5. Implemented src/real_model/image_converter.py:
+       - series_to_images(): 1D series → 3 PIL images (raw, mean, std)
+       - normalise_to_int_range(): [0, 1000] integer normalization
+       - subsample(): uniform downsampling to max_len points
+       - select_features(): top-K by variance
+  6. Implemented src/real_model/inference.py:
+       - AnomalyDetectorVL: loads model + merges LoRA (144 layers, 8.8s load time)
+       - detect(): 3-image + text prompt → JSON {anomalies: [{start, end}]}
+       - Handles transformers 5.x BatchEncoding API change
+       - Robust JSON extraction: bracket-matching + regex fallback for truncated output
+  7. Implemented src/real_model/evaluate_real.py:
+       - Per-dataset: select top-K features → subsample → generate images →
+         run VLM → parse anomaly intervals → map back to rows → vote-based score
+       - Produces results/real_model_auroc.csv and real_model_comparison.csv
+  8. Ran full benchmark: 47/47 datasets, ~30 min total
+     Parameters: k_features=3, max_len=128, max_new_tokens=64
+
+Results:
+  Real Model (Qwen2.5-VL-3B + LoRA ts3): mean AUROC = 0.5011
+  IsolationForest:                        mean AUROC = 0.7711
+  RFuni:                                  mean AUROC = 0.6336
+
+  Real model wins vs IsoForest: 5/47 datasets
+  Real model wins vs RFuni:     8/47 datasets
+
+Analysis:
+  The VLM achieves essentially random AUROC (~0.50) on ADBench tabular datasets.
+  This is expected because:
+    - ADBench tabular datasets have i.i.d. samples (no temporal structure)
+    - Anomalies are randomly distributed across rows, not clustered in intervals
+    - The model was trained to detect contiguous temporal anomaly intervals
+    - When features are treated as time series, the "anomaly interval" output
+      covers both normal and anomalous rows equally → random AUROC
+
+  Best results: Lymphography (0.71), cardio (0.53), WPBC (0.53)
+  Worst: wine (0.36), vertebral (0.42), WBC (0.47)
+
+Files added:
+  src/real_model/__init__.py
+  src/real_model/image_converter.py
+  src/real_model/inference.py
+  src/real_model/evaluate_real.py
+  results/real_model_auroc.csv
+  results/real_model_comparison.csv
+  /home/ubuntu/models/Qwen2.5-VL-3B-Instruct  (not tracked in git; 7.5GB)
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6
