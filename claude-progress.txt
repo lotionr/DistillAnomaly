@@ -180,6 +180,27 @@ Completed:
   - Marked F09 passes: true in feature_list.json.
 Status: Clean. Ready for F10 (end-to-end pipeline script).
 
+--- SESSION 10 — F10: End-to-End Pipeline Script ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F10 — End-to-end pipeline script
+Completed:
+  - Created run_evaluation.py (top-level, one-command pipeline).
+  - 5 steps: env info → IsoForest eval → aggregate → RFuni eval → comparison.
+  - Flags: --dataset (single dataset), --skip-rfuni, --baseline-only,
+           --data-dir, --results-dir, --test-size, --seed.
+  - Tested all flag combinations: all work correctly.
+  - Full single-dataset run: 1.9s, AUROC=0.9930 for breastw.
+  - Marked F10 passes: true in feature_list.json.
+
+=== ALL 10 FEATURES COMPLETE ===
+Final results summary:
+  IsolationForest mean AUROC: 0.7711 (47/47 datasets)
+  RFuni mean AUROC:           0.6336 (47/47 datasets)
+  Delta:                     +0.1375 (IsolationForest wins 37/47)
+
+Status: Clean. All features implemented and committed.
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

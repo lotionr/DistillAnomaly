@@ -122,6 +122,6 @@
       "Add --baseline-only flag to run just RFuni for comparison",
       "Verify python run_evaluation.py completes without errors"
     ],
-    "passes": false
+    "passes": true
   }
 ]
