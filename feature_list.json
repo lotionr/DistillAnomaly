@@ -33,7 +33,7 @@
       "Ensure model outputs a 1D anomaly score array of shape (n_samples,)",
       "Test on one ADBench dataset end-to-end"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F04",
