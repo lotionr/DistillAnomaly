@@ -100,6 +100,21 @@ Completed:
   - Marked F04 passes: true in feature_list.json.
 Status: Clean. Ready for F05 (per-dataset evaluation loop).
 
+--- SESSION 5 — F05: Per-Dataset Evaluation Loop ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F05 — Per-dataset evaluation loop
+Completed:
+  - Implemented src/tabular/evaluate.py with run_evaluation() loop.
+  - For each dataset: load → stratified 80/20 split → preprocess → fit → score → AUROC.
+  - Graceful error handling: exceptions caught, dataset marked as failed, loop continues.
+  - Results saved to results/per_dataset_auroc.csv.
+  - Print summary table sorted by AUROC descending.
+  - Supports --dataset flag for single-dataset mode (quick testing).
+  - Full run: 47/47 datasets succeed, mean AUROC = 0.7711.
+  - Marked F05 passes: true in feature_list.json.
+Status: Clean. Ready for F06 (aggregate scoring and results table).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6

@@ -58,7 +58,7 @@
       "Handle failures gracefully: catch exceptions, log error, skip dataset",
       "Save results to results/per_dataset_auroc.csv"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F06",
