@@ -45,7 +45,7 @@
       "Write unit test with known inputs and expected AUROC output",
       "Verify against a trivial detector (random scores should give ~0.5)"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F05",

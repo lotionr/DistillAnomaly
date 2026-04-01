@@ -84,6 +84,22 @@ Completed:
   - Marked F03 passes: true in feature_list.json.
 Status: Clean. Ready for F04 (AUROC scoring function).
 
+--- SESSION 4 — F04: AUROC Scoring Function ---
+Date: 2026-04-01
+Agent: Claude Sonnet 4.6
+Feature: F04 — AUROC scoring function
+Completed:
+  - Implemented src/tabular/metrics.py with compute_auroc(y_true, scores).
+  - Wraps sklearn roc_auc_score with robust edge-case handling:
+      - All-same labels → np.nan
+      - Empty arrays → np.nan
+      - NaN/inf scores → replaced by finite median before scoring
+      - All non-finite scores → np.nan
+  - 9 unit tests all pass: perfect separation (1.0), inversion (0.0),
+    random chance (~0.5), all-same labels, empty, NaN scores, inf scores.
+  - Marked F04 passes: true in feature_list.json.
+Status: Clean. Ready for F05 (per-dataset evaluation loop).
+
 --- SESSION 1 — F01: ADBench Data Loader ---
 Date: 2026-04-01
 Agent: Claude Sonnet 4.6
