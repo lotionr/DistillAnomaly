@@ -21,7 +21,7 @@
       "Handle missing values gracefully",
       "Ensure preprocessing is fit only on training data to avoid leakage"
     ],
-    "passes": false
+    "passes": true
   },
   {
     "id": "F03",
